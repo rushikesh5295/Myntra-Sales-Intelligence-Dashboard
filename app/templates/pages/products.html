@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import kpi, chart_card %}
+{% block title %}Product Analysis{% endblock %}
+{% block crumb %}Product Analysis{% endblock %}
+{% block eyebrow %}Product Intelligence{% endblock %}
+{% block heading %}Product Analysis{% endblock %}
+{% block description %}Identify high-performing categories, brands and products.{% endblock %}
+{% block note %}Based on delivered orders{% endblock %}
+
+{% block content %}
+<div class="section-heading"><h3>Product Performance</h3><span>Delivered-product KPIs</span></div>
+<div class="kpi-grid">
+  {{ kpi('Total Products', 'totalProductsKpi', 'Unique products sold', 'tag', 'pink') }}
+  {{ kpi('Product Revenue', 'productRevenueKpi', 'Delivered order value', None, 'orange', rupee=True) }}
+  {{ kpi('Units Sold', 'productUnitsKpi', 'Delivered quantities', 'box', 'purple') }}
+  {{ kpi('Average Selling Price', 'averagePriceKpi', 'Revenue per delivered unit', None, 'green', rupee=True) }}
+</div>
+
+<div class="section-heading"><h3>Product Insights</h3><span>Three focused product visualizations</span></div>
+<div class="analytics-grid equal">
+  {{ chart_card('Category-wise Revenue', 'Revenue contribution by category', 'categoryRevenueChart') }}
+  {{ chart_card('Top 5 Performing Brands', 'Ranked by delivered revenue', 'brandRevenueChart', 'Top 5') }}
+  {{ chart_card('Top 5 Selling Products', 'Ranked by delivered units sold', 'topProductsChart', 'Top 5') }}
+</div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/products.js') }}"></script>{% endblock %}

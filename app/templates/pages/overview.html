@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import kpi, chart_card %}
+{% block title %}Sales Overview{% endblock %}
+{% block crumb %}Sales Overview{% endblock %}
+
+{% block hero %}
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">FASHION &amp; LIFESTYLE · SALES DASHBOARD</p>
+    <h1>Sales Intelligence</h1>
+  </div>
+</section>
+{% endblock %}
+
+{% block eyebrow %}Business Intelligence{% endblock %}
+{% block heading %}Sales Overview{% endblock %}
+{% block description %}Track delivered sales, revenue trends and geographic performance.{% endblock %}
+{% block note %}Revenue includes delivered orders only{% endblock %}
+
+{% block content %}
+<div class="section-heading"><h3>Business Performance</h3><span>Delivered-order KPIs</span></div>
+<div class="kpi-grid kpi-grid-five">
+  {{ kpi('Total Revenue', 'revenueKpi', 'Delivered order value', None, 'pink', rupee=True) }}
+  {{ kpi('Total Orders', 'ordersKpi', 'Delivered orders', 'bag', 'orange') }}
+  {{ kpi('Customers', 'customersKpi', 'Unique delivered customers', 'users', 'purple') }}
+  {{ kpi('Average Order Value', 'aovKpi', 'Revenue per delivered order', None, 'green', rupee=True) }}
+  {{ kpi('Units Sold', 'unitsKpi', 'Delivered quantities', 'box', 'maroon') }}
+</div>
+
+<div class="section-heading"><h3>Sales Analytics</h3><span>Three focused business visualizations</span></div>
+<div class="analytics-grid">
+  {{ chart_card('Monthly Revenue Trend', 'Delivered revenue by month', 'revenueChart', 'Trend', span='span-2') }}
+  {{ chart_card('Revenue by Category', 'Delivered revenue contribution', 'categoryChart') }}
+  {{ chart_card('Top 5 Geographic Areas', 'Highest revenue-generating states', 'geographyChart', 'Top 5', 'geoSubtitle', span='span-3') }}
+</div>
+
+<section class="status-panel">
+  <div class="card-header"><div><h3>Order Status Summary</h3><p>Operational context; these statuses are not added to delivered revenue.</p></div></div>
+  <div id="orderStatusSummary" class="status-summary"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/overview.js') }}"></script>{% endblock %}

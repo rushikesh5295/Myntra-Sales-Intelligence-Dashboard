@@ -1,0 +1,73 @@
+{% from '_macros.html' import icon %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Dashboard{% endblock %} | Myntra Sales Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="dashboard-container">
+
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('pages.overview') }}">
+      <div class="brand-name"><h2>Myntra</h2><span>Sales Intelligence</span></div>
+    </a>
+
+    <nav class="sidebar-menu">
+      <p class="menu-heading">Main Menu</p>
+      <a href="{{ url_for('pages.overview') }}" class="nav-link {{ 'active' if active == 'overview' }}">{{ icon('grid') }}<span>Sales Overview</span></a>
+      <a href="{{ url_for('pages.customers') }}" class="nav-link {{ 'active' if active == 'customers' }}">{{ icon('users') }}<span>Customer Behaviour</span></a>
+      <a href="{{ url_for('pages.products') }}" class="nav-link {{ 'active' if active == 'products' }}">{{ icon('bag') }}<span>Product Analysis</span></a>
+    </nav>
+
+
+  </aside>
+
+
+    <section class="dashboard-content">
+      {% block hero %}{% endblock %}
+
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">{% block eyebrow %}{% endblock %}</p>
+          <h1>{% block heading %}{% endblock %}</h1>
+          <p class="page-description">{% block description %}{% endblock %}</p>
+        </div>
+        <span class="data-note">{% block note %}{% endblock %}</span>
+      </div>
+
+      <section class="filter-panel">
+        <div class="filter-title">
+          <div><h3>Dashboard Filters</h3><p>Filters apply to every metric and chart, on all three pages.</p></div>
+          <span id="filterStatus" class="filter-status">Loading filters…</span>
+        </div>
+        <div class="filter-controls">
+          <label>State<select id="stateFilter"><option value="All">All States</option></select></label>
+          <label>Category<select id="categoryFilter"><option value="All">All Categories</option></select></label>
+          <label>Brand<select id="brandFilter"><option value="All">All Brands</option></select></label>
+          <label>From<input id="startDateFilter" type="date"></label>
+          <label>To<input id="endDateFilter" type="date"></label>
+          <div class="filter-actions">
+            <button id="applyFilters" class="primary-button" type="button">Apply</button>
+            <button id="resetFilters" class="secondary-button" type="button">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      {% block content %}{% endblock %}
+
+      <p id="pageError" class="error-message" role="alert"></p>
+    </section>
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard_common.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

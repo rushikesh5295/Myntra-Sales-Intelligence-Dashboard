@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import kpi, chart_card %}
+{% block title %}Customer Behaviour{% endblock %}
+{% block crumb %}Customer Behaviour{% endblock %}
+{% block eyebrow %}Customer Intelligence{% endblock %}
+{% block heading %}Customer Behaviour{% endblock %}
+{% block description %}Understand who buys, how often they return and how much they spend.{% endblock %}
+{% block note %}Based on delivered orders{% endblock %}
+
+{% block content %}
+<div class="section-heading"><h3>Customer Performance</h3><span>Delivered-customer KPIs</span></div>
+<div class="kpi-grid">
+  {{ kpi('Total Customers', 'totalCustomersKpi', 'Unique delivered customers', 'users', 'pink') }}
+  {{ kpi('New Customers', 'newCustomersKpi', 'First delivered order in selection', 'user-plus', 'orange') }}
+  {{ kpi('Repeat Customers', 'repeatCustomersKpi', 'More than one delivered order', 'repeat', 'purple') }}
+  {{ kpi('Average Customer Spend', 'averageSpendKpi', 'Revenue per customer', None, 'green', rupee=True) }}
+</div>
+
+<div class="section-heading"><h3>Customer Insights</h3><span>Three focused customer visualizations</span></div>
+<div class="analytics-grid equal">
+  {{ chart_card('Customers by Gender', 'Unique customers per gender segment', 'genderChart') }}
+  {{ chart_card('Purchase Frequency', 'Customers by number of orders', 'frequencyChart') }}
+  {{ chart_card('Customer Segments', 'One-time, occasional and frequent buyers', 'segmentsChart') }}
+</div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/customers.js') }}"></script>{% endblock %}
